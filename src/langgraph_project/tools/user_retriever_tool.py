@@ -4,12 +4,11 @@ from langgraph_project.settings import settings
 from langgraph_project.vector_store.index import create_index
 
 # Initialize the VectorStore and set the index
-
 index = create_index(settings.knowledge_base_path + "/users", "users_collection", )
 
 @tool
 def retrieve_user_information_vectorbase(query: str):
-    """Retrieve information from a MongoDB Atlas Vector Search index.
+    """Retrieve information from a ChromaDB Vector Search index.
     
     Args:
         query (str): The search query.

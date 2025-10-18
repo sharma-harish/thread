@@ -8,7 +8,7 @@ index = create_index(settings.knowledge_base_path + "/documentation", "doc_colle
 
 @tool
 def retrieve_documentation_vectorbase(query: str):
-    """Retrieve information from a MongoDB Atlas Vector Search index.
+    """Retrieve information from a ChromaDB Vector Search index.
     
     Args:
         query (str): The search query.
