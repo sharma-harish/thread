@@ -2,7 +2,7 @@
 name = "thread"
 version = "0.1.0"
 description = "LangGraph multi-agent workflow with weave tracing"
-requires-python = "==3.12.11"
+requires-python = ">=3.12.11"
 dependencies = [
     "langchain==1.0.0",
     "langchain-chroma==1.0.0",
