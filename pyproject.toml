@@ -1,7 +1,17 @@
 [project]
 name = "thread"
 version = "0.1.0"
-description = "LangGraph project with weave tracing"
-readme = "README.md"
+description = "Add your description here"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "google-generativeai>=0.3.2",
+    "langchain>=1.0.0",
+    "langchain-chroma>=1.0.0",
+    "langchain-community>=0.4",
+    "langchain-google-genai>=0.0.1",
+    "langchain-mongodb>=0.7.1",
+    "langchain-openai>=1.0.0",
+    "langgraph>=1.0.0",
+    "pydantic-settings>=2.11.0",
+    "unstructured[md]>=0.18.15",
+]
