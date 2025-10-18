@@ -1,1 +1,2 @@
-.idea/
+.env
+src/langgraph_project/chroma_db
