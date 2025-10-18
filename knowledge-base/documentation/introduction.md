@@ -51,17 +51,17 @@ When you run this code, Weave:
 import weave
 import openai
 
-# Initialize Weave - replace with your-team/your-project
+## Initialize Weave - replace with your-team/your-project
 weave.init("<team-name>/my-first-weave-project")
 
-# Create an OpenAI-compatible client pointing to W&B Inference
+## Create an OpenAI-compatible client pointing to W&B Inference
 client = openai.OpenAI(
     base_url='https://api.inference.wandb.ai/v1',
     api_key="YOUR_WANDB_API_KEY",  # Replace with your actual API key
     project="<team-name>/my-first-weave-project",  # Required for usage tracking
 )
 
-# Decorate your function to enable tracing; use the standard OpenAI client
+## Decorate your function to enable tracing; use the standard OpenAI client
 @weave.op()
 def ask_llama(question: str) -> str:
     response = client.chat.completions.create(
@@ -73,7 +73,7 @@ def ask_llama(question: str) -> str:
     )
     return response.choices[0].message.content
 
-# Call your function - Weave automatically traces everything
+## Call your function - Weave automatically traces everything
 result = ask_llama("What are the benefits of using W&B Weave for LLM development?")
 print(result)
 ```
@@ -86,7 +86,7 @@ Next, try running this code, which is a basic summarization app that shows how W
 import weave
 import openai
 
-# Initialize Weave - replace with your-team/your-project
+## Initialize Weave - replace with your-team/your-project
 weave.init("<team-name>/my-first-weave-project")
 
 client = openai.OpenAI(
@@ -105,7 +105,7 @@ def extract_key_points(text: str) -> list[str]:
             {"role": "user", "content": text}
         ],
     )
-    # Returns response without blank lines
+    ## Returns response without blank lines
     return [line for line in response.choices[0].message.content.strip().splitlines() if line.strip()]
 
 @weave.op()
@@ -131,7 +131,7 @@ def summarize_text(text: str) -> dict:
         "summary": summary
     }
 
-# Try it with sample text
+## Try it with sample text
 sample_text = """
 The Apollo 11 mission was a historic spaceflight that landed the first humans on the Moon 
 on July 20, 1969. Commander Neil Armstrong and lunar module pilot Buzz Aldrin descended 
@@ -152,7 +152,7 @@ W&B Inference provides access to multiple models. Use the following code to comp
 import weave
 import openai
 
-# Initialize Weave - replace with your-team/your-project
+## Initialize Weave - replace with your-team/your-project
 weave.init("<team-name>/my-first-weave-project")
 
 client = openai.OpenAI(
@@ -161,7 +161,7 @@ client = openai.OpenAI(
     project="<team-name>/my-first-weave-project",  # Required for usage tracking
 )
 
-# Define a Model class to compare different LLMs
+## Define a Model class to compare different LLMs
 class InferenceModel(weave.Model):
     model_name: str
     
@@ -175,11 +175,11 @@ class InferenceModel(weave.Model):
         )
         return response.choices[0].message.content
 
-# Create instances for different models
+## Create instances for different models
 llama_model = InferenceModel(model_name="meta-llama/Llama-3.1-8B-Instruct")
 deepseek_model = InferenceModel(model_name="deepseek-ai/DeepSeek-V3-0324")
 
-# Compare their responses
+## Compare their responses
 test_question = "Explain quantum computing in one paragraph for a high school student."
 
 print("Llama 3.1 8B response:")
@@ -198,14 +198,14 @@ Append the following code to the script you used in step 3:
 from typing import Optional
 from weave import EvaluationLogger
 
-# Create a simple dataset
+## Create a simple dataset
 dataset = [
     {"question": "What is 2 + 2?", "expected": "4"},
     {"question": "What is the capital of France?", "expected": "Paris"},
     {"question": "Name a primary color", "expected_one_of": ["red", "blue", "yellow"]},
 ]
 
-# Define a scorer
+## Define a scorer
 @weave.op()
 def accuracy_scorer(expected: str, output: str, expected_one_of: Optional[list[str]] = None) -> dict:
     """Score the accuracy of the model output."""
@@ -218,12 +218,12 @@ def accuracy_scorer(expected: str, output: str, expected_one_of: Optional[list[s
     
     return {"correct": is_correct, "score": 1.0 if is_correct else 0.0}
 
-# Evaluate a model using Weave's EvaluationLogger
+## Evaluate a model using Weave's EvaluationLogger
 def evaluate_model(model: InferenceModel, dataset: list[dict]):
     """Run evaluation on a dataset using Weave's built-in evaluation framework."""
-    # Initialize EvaluationLogger BEFORE calling the model to capture token usage
-    # This is especially important for W&B Inference to track costs
-    # Convert model name to a valid format (replace non-alphanumeric chars with underscores)
+    ## Initialize EvaluationLogger BEFORE calling the model to capture token usage
+    ## This is especially important for W&B Inference to track costs
+    ## Convert model name to a valid format (replace non-alphanumeric chars with underscores)
     safe_model_name = model.model_name.replace("/", "_").replace("-", "_").replace(".", "_")
     eval_logger = EvaluationLogger(
         model=safe_model_name,
@@ -231,36 +231,36 @@ def evaluate_model(model: InferenceModel, dataset: list[dict]):
     )
     
     for example in dataset:
-        # Get model prediction
+        ## Get model prediction
         output = model.predict(example["question"])
         
-        # Log the prediction
+        ## Log the prediction
         pred_logger = eval_logger.log_prediction(
             inputs={"question": example["question"]},
             output=output
         )
         
-        # Score the output
+        ## Score the output
         score = accuracy_scorer(
             expected=example.get("expected", ""),
             output=output,
             expected_one_of=example.get("expected_one_of")
         )
         
-        # Log the score
+        ## Log the score
         pred_logger.log_score(
             scorer="accuracy",
             score=score["score"]
         )
         
-        # Finish logging for this prediction
+        ## Finish logging for this prediction
         pred_logger.finish()
     
-    # Log summary - Weave automatically aggregates the accuracy scores
+    ## Log summary - Weave automatically aggregates the accuracy scores
     eval_logger.log_summary()
     print(f"Evaluation complete for {model.model_name} (logged as: {safe_model_name}). View results in the Weave UI.")
 
-# Compare multiple models - a key feature of Weave's evaluation framework
+## Compare multiple models - a key feature of Weave's evaluation framework
 models_to_compare = [
     llama_model,
     deepseek_model,
@@ -269,7 +269,7 @@ models_to_compare = [
 for model in models_to_compare:
     evaluate_model(model, dataset)
 
-# In the Weave UI, navigate to the Evals tab to compare results across models
+## In the Weave UI, navigate to the Evals tab to compare results across models
 ```
 
 Running these examples returns links to the traces in the terminal. Click any link to view traces in the Weave UI.

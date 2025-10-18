@@ -45,8 +45,8 @@ model = ExtractFruitsModel(model_name='gpt-3.5-turbo-1106',
                         prompt_template='Extract fields ("fruit": <str>, "color": <str>, "flavor": <str>) from the following text, as json: {sentence}')
 sentence = "There are many fruits that were found on the recently discovered planet Goocrux. There are neoskizzles that grow there, which are purple and taste like candy."
 print(asyncio.run(model.predict(sentence)))
-# if you're in a Jupyter Notebook, run:
-# await model.predict(sentence)
+## if you're in a Jupyter Notebook, run:
+## await model.predict(sentence)
 ```
 
 # 2. Collect some examples
@@ -94,8 +94,8 @@ evaluation = weave.Evaluation(
     ],
 )
 print(asyncio.run(evaluation.evaluate(model)))
-# if you're in a Jupyter Notebook, run:
-# await evaluation.evaluate(model)
+## if you're in a Jupyter Notebook, run:
+## await evaluation.evaluate(model)
 ```
 
 In some applications we want to create custom Scorer classes - where for example a standardized LLMJudge class should be created with specific parameters (e.g. chat model, prompt), specific scoring of each row, and specific calculation of an aggregate score. See the tutorial on defining a Scorer class in the next chapter on Model-Based Evaluation of RAG applications for more information.
@@ -108,8 +108,8 @@ import weave
 from weave.scorers import MultiTaskBinaryClassificationF1
 import openai
 
-# We create a model class with one predict function.
-# All inputs, predictions and parameters are automatically captured for easy inspection.
+## We create a model class with one predict function.
+## All inputs, predictions and parameters are automatically captured for easy inspection.
 
 class ExtractFruitsModel(weave.Model):
     model_name: str
@@ -132,10 +132,10 @@ class ExtractFruitsModel(weave.Model):
         parsed = json.loads(result)
         return parsed
 
-# We call init to begin capturing data in the project, intro-example.
+## We call init to begin capturing data in the project, intro-example.
 weave.init('intro-example')
 
-# We create our model with our system prompt.
+## We create our model with our system prompt.
 model = ExtractFruitsModel(name='gpt4',
                         model_name='gpt-4-0125-preview',
                         prompt_template='Extract fields ("fruit": <str>, "color": <str>, "flavor") from the following text, as json: {sentence}')
@@ -152,21 +152,21 @@ examples = [
     {'id': '1', 'sentence': sentences[1], 'target': labels[1]},
     {'id': '2', 'sentence': sentences[2], 'target': labels[2]}
 ]
-# If you have already published the Dataset, you can run:
-# dataset = weave.ref('example_labels').get()
+## If you have already published the Dataset, you can run:
+## dataset = weave.ref('example_labels').get()
 
-# We define a scoring function to compare our model predictions with a ground truth label.
+## We define a scoring function to compare our model predictions with a ground truth label.
 @weave.op()
 def fruit_name_score(target: dict, output: dict) -> dict:
     return {'correct': target['fruit'] == output['fruit']}
 
-# Finally, we run an evaluation of this model.
-# This will generate a prediction for each input example, and then score it with each scoring function.
+## Finally, we run an evaluation of this model.
+## This will generate a prediction for each input example, and then score it with each scoring function.
 evaluation = weave.Evaluation(
     name='fruit_eval',
     dataset=examples, scorers=[MultiTaskBinaryClassificationF1(class_names=["fruit", "color", "flavor"]), fruit_name_score],
 )
 print(asyncio.run(evaluation.evaluate(model)))
-# if you're in a Jupyter Notebook, run:
-# await evaluation.evaluate(model)
+## if you're in a Jupyter Notebook, run:
+## await evaluation.evaluate(model)
 ```
