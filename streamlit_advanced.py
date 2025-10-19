@@ -167,7 +167,7 @@ async def process_query_async(query: str) -> Dict[str, Any]:
         # Extract response and flow information
         response = ""
         flow_type = "unknown"
-        confidence = 0.0
+        # confidence = 0.0
         
         if "messages" in result and result["messages"]:
             last_message = result["messages"][-1]
@@ -178,7 +178,7 @@ async def process_query_async(query: str) -> Dict[str, Any]:
         
         if "message" in result:
             flow_type = result["message"].get("type", "unknown")
-            confidence = result["message"].get("confidence", 0.0)
+            # confidence = result["message"].get("confidence", 0.0)
         
         # Update flow statistics
         if flow_type in st.session_state.flow_statistics:
@@ -190,7 +190,7 @@ async def process_query_async(query: str) -> Dict[str, Any]:
             "query": query,
             "flow_type": flow_type,
             "processing_time": processing_time,
-            "confidence": confidence,
+            # "confidence": confidence,
             "response_length": len(response)
         }
         st.session_state.performance_metrics.append(performance_metric)
@@ -198,7 +198,7 @@ async def process_query_async(query: str) -> Dict[str, Any]:
         return {
             "response": response,
             "flow_type": flow_type,
-            "confidence": confidence,
+            # "confidence": confidence,
             "processing_time": processing_time,
             "full_result": result
         }
@@ -229,7 +229,7 @@ def display_chat_message(message: Dict[str, Any], is_user: bool = False):
         """, unsafe_allow_html=True)
     else:
         flow_type = message.get('flow_type', 'unknown')
-        confidence = message.get('confidence', 0.0)
+        # confidence = message.get('confidence', 0.0)
         
         # Flow-specific styling
         flow_colors = {
@@ -253,9 +253,6 @@ def display_chat_message(message: Dict[str, Any], is_user: bool = False):
             <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
                 <span style="color: {color}; font-weight: bold;">
                     {icon} {flow_type.title()} Flow
-                </span>
-                <span style="margin-left: auto; font-size: 0.8rem; color: #666;">
-                    Confidence: {confidence:.1%}
                 </span>
             </div>
             <strong>Assistant:</strong> {message['content']}
@@ -451,7 +448,8 @@ def main():
         st.subheader("🧭 Navigation")
         page = st.selectbox(
             "Select Page:",
-            ["💬 Chat Interface", "📊 Dashboard", "🧪 Evaluation", "⚙️ Settings"]
+            ["💬 Chat Interface", "🧪 Evaluation"]
+            # ["💬 Chat Interface", "📊 Dashboard", "🧪 Evaluation", "⚙️ Settings"]
         )
         
         st.divider()
@@ -462,22 +460,22 @@ def main():
             st.session_state.messages = []
             st.rerun()
         
-        if st.button("📊 Reset Metrics"):
-            st.session_state.performance_metrics = []
-            st.session_state.flow_statistics = {
-                "user": 0, "documentation": 0, "general": 0, "more-info": 0
-            }
-            st.rerun()
+        # if st.button("📊 Reset Metrics"):
+        #     st.session_state.performance_metrics = []
+        #     st.session_state.flow_statistics = {
+        #         "user": 0, "documentation": 0, "general": 0, "more-info": 0
+        #     }
+        #     st.rerun()
     
     # Main content based on selected page
     if page == "💬 Chat Interface":
         display_chat_interface()
-    elif page == "📊 Dashboard":
-        display_dashboard()
+    # elif page == "📊 Dashboard":
+    #     display_dashboard()
     elif page == "🧪 Evaluation":
         display_evaluation_page()
-    elif page == "⚙️ Settings":
-        display_settings_page()
+    # elif page == "⚙️ Settings":
+    #     display_settings_page()
 
 def display_chat_interface():
     """Display the chat interface."""
@@ -519,7 +517,7 @@ def display_chat_interface():
                 "role": "assistant",
                 "content": result.get("response", "No response generated"),
                 "flow_type": result.get("flow_type", "unknown"),
-                "confidence": result.get("confidence", 0.0),
+                # "confidence": result.get("confidence", 0.0),
                 "processing_time": result.get("processing_time", 0.0),
                 "timestamp": datetime.now().isoformat()
             }

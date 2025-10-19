@@ -10,7 +10,11 @@ dependencies = [
     "langchain-google-genai==3.0.0",
     "langchain-openai==1.0.0",
     "langgraph==1.0.0",
+    "pandas==2.3.0",
+    "plotly==5.17.0",
     "pydantic-settings==2.11.0",
+    "streamlit==1.39.0",
+    "streamlit-chat==0.1.1",
     "unstructured[md]==0.18.15",
     "weave==0.52.1",
     "wandb==0.22.2"
