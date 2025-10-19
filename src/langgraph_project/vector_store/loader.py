@@ -33,4 +33,4 @@ def load_documents_from_folder(knowledge_base_path: str):
             split_docs.append(chunk)
     loader_logger.info(f"Read {len(docs)} files")
 
-    return docs
+    return split_docs
