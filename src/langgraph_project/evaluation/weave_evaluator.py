@@ -11,6 +11,7 @@ from weave import Evaluation, Model, op
 from typing import Dict, Any, List, Optional
 from dataclasses import dataclass
 from enum import Enum
+import random
 
 
 # Initialize Weave
@@ -218,7 +219,7 @@ async def run_simple_weave_evaluation():
     test_cases = load_test_cases("src/langgraph_project/evaluation/datasets/comprehensive_test_cases.json")
     
     # Take a small sample for demo
-    sample_cases = test_cases[:1]
+    sample_cases = random.sample(test_cases, 5)
     
     # Run evaluation
     evaluation = await run_weave_evaluation(sample_cases, "WeaveMultiAgent")
