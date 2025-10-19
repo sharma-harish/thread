@@ -43,54 +43,29 @@ def main():
         return
     
     # Available apps
-    apps = {
-        "1": {
-            "name": "Basic Chat Interface",
-            "file": "streamlit_app.py",
-            "description": "Simple chat interface with basic features"
-        },
-        "2": {
+    app = {
             "name": "Advanced Dashboard",
-            "file": "streamlit_advanced.py", 
+            "file": "streamlit_app.py",
             "description": "Advanced dashboard with analytics and evaluation"
         }
-    }
-    
-    print("\n📱 Available Applications:")
-    for key, app in apps.items():
-        print(f"  {key}. {app['name']}")
-        print(f"     {app['description']}")
-    
-    print("\n🎯 Choose an application to launch:")
     
     while True:
-        choice = input("\nEnter your choice (1-2) or 'q' to quit: ").strip()
-        
-        if choice.lower() == 'q':
-            print("👋 Goodbye!")
-            break
-        
-        if choice in apps:
-            app = apps[choice]
-            app_path = Path(app['file'])
-            
-            if not app_path.exists():
-                print(f"❌ App file not found: {app_path}")
-                continue
-            
-            # Ask for port
-            port_input = input(f"Enter port number (default 8501): ").strip()
-            try:
-                port = int(port_input) if port_input else 8501
-            except ValueError:
-                port = 8501
-                print(f"Invalid port, using default: {port}")
-            
-            print(f"\n🚀 Launching {app['name']}...")
-            run_streamlit_app(app['file'], port)
-            break
-        else:
-            print("❌ Invalid choice. Please select 1, 2, or 'q'.")
+        app_path = Path(app["file"])
+
+        if not app_path.exists():
+            print(f"❌ App file not found: {app_path}")
+            continue
+
+        # Ask for port
+        port_input = input(f"Enter port number (default 8501): ").strip()
+        try:
+            port = int(port_input) if port_input else 8501
+        except ValueError:
+            port = 8501
+            print(f"Invalid port, using default: {port}")
+
+        print(f"\n🚀 Launching {app['name']}...")
+        run_streamlit_app(app["file"], port)
 
 if __name__ == "__main__":
     main()
