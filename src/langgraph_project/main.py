@@ -113,18 +113,18 @@ def build_graph() -> StateGraph:
     return builder
 
 
-def compile_graph() -> object:
+def compile_graph(checkpointer=None) -> object:
     """Compile the graph and return the executable graph object."""
     builder = build_graph()
-    graph = builder.compile()
+    graph = builder.compile(checkpointer)
     graph.name = "RetrievalGraph"
     return graph
 
 
-def get_or_create_graph() -> object:
+def get_or_create_graph(checkpointer=None) -> object:
     """Get or create a singleton instance of the compiled graph."""
     if not hasattr(get_or_create_graph, '_graph'):
-        get_or_create_graph._graph = compile_graph()
+        get_or_create_graph._graph = compile_graph(checkpointer)
     return get_or_create_graph._graph
 
 

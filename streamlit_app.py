@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Dict, Any
 
 import streamlit as st
+from langgraph.checkpoint.memory import InMemorySaver
 
 # Add the src directory to Python path
 project_root = Path(__file__).parent
@@ -118,7 +119,8 @@ def initialize_graph():
     if st.session_state.graph is None:
         with st.spinner("Initializing weave multi-agent system..."):
             try:
-                st.session_state.graph = get_or_create_graph()
+                checkpointer = InMemorySaver()
+                st.session_state.graph = get_or_create_graph(checkpointer)
                 st.session_state.system_status = "online"
                 st.success("✅ Multi-agent system initialized successfully!")
                 return True
@@ -143,7 +145,7 @@ async def process_query_async(query: str) -> Dict[str, Any]:
         }
         
         # Execute the graph
-        result = await st.session_state.graph.ainvoke(initial_state)
+        result = await st.session_state.graph.ainvoke(initial_state, {"configurable": {"thread_id": "1"}})
         
         processing_time = time.time() - start_time
         
