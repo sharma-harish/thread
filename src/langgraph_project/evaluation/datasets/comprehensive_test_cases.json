@@ -1,0 +1,293 @@
+{
+  "user_flow_tests": [
+    {
+      "question": "What is the primary contact number for Carol Johnson?",
+      "expected_flow": "user",
+      "expected_response": "The primary contact number for Carol Johnson is",
+      "expected_entities": ["Carol Johnson", "contact number"],
+      "context": {
+        "domain": "user_information",
+        "complexity": "medium"
+      },
+      "metadata": {
+        "test_id": "user_001",
+        "category": "contact_information"
+      }
+    },
+    {
+      "question": "Can you tell me John Doe's account number?",
+      "expected_flow": "user",
+      "expected_response": "John Doe's account number is",
+      "expected_entities": ["John Doe", "account number"],
+      "context": {
+        "domain": "user_information",
+        "complexity": "medium"
+      },
+      "metadata": {
+        "test_id": "user_002",
+        "category": "account_information"
+      }
+    },
+    {
+      "question": "What is the billing information for Sarah Wilson?",
+      "expected_flow": "user",
+      "expected_response": "Sarah Wilson's billing information",
+      "expected_entities": ["Sarah Wilson", "billing"],
+      "context": {
+        "domain": "user_information",
+        "complexity": "medium"
+      },
+      "metadata": {
+        "test_id": "user_003",
+        "category": "billing_information"
+      }
+    },
+    {
+      "question": "Show me the usage statistics for Mike Chen",
+      "expected_flow": "user",
+      "expected_response": "Mike Chen's usage statistics",
+      "expected_entities": ["Mike Chen", "usage statistics"],
+      "context": {
+        "domain": "user_information",
+        "complexity": "medium"
+      },
+      "metadata": {
+        "test_id": "user_004",
+        "category": "usage_statistics"
+      }
+    }
+  ],
+  "documentation_flow_tests": [
+    {
+      "question": "How can I define an evaluation model in Weave?",
+      "expected_flow": "documentation",
+      "expected_response": "To define an evaluation model in Weave, you can",
+      "expected_entities": ["evaluation model", "Weave"],
+      "context": {
+        "domain": "documentation",
+        "complexity": "high"
+      },
+      "metadata": {
+        "test_id": "doc_001",
+        "category": "evaluation_models"
+      }
+    },
+    {
+      "question": "What are the steps to set up LLM call traces?",
+      "expected_flow": "documentation",
+      "expected_response": "To set up LLM call traces in Weave",
+      "expected_entities": ["LLM call traces", "setup"],
+      "context": {
+        "domain": "documentation",
+        "complexity": "high"
+      },
+      "metadata": {
+        "test_id": "doc_002",
+        "category": "tracing"
+      }
+    },
+    {
+      "question": "How do I compare model performance using Weave?",
+      "expected_flow": "documentation",
+      "expected_response": "To compare model performance in Weave",
+      "expected_entities": ["model performance", "compare", "Weave"],
+      "context": {
+        "domain": "documentation",
+        "complexity": "medium"
+      },
+      "metadata": {
+        "test_id": "doc_003",
+        "category": "model_comparison"
+      }
+    },
+    {
+      "question": "What is Weave Inference and how does it work?",
+      "expected_flow": "documentation",
+      "expected_response": "Weave Inference is",
+      "expected_entities": ["Weave Inference"],
+      "context": {
+        "domain": "documentation",
+        "complexity": "medium"
+      },
+      "metadata": {
+        "test_id": "doc_004",
+        "category": "weave_inference"
+      }
+    },
+    {
+      "question": "How to build an evaluation pipeline with Weave?",
+      "expected_flow": "documentation",
+      "expected_response": "To build an evaluation pipeline with Weave",
+      "expected_entities": ["evaluation pipeline", "Weave"],
+      "context": {
+        "domain": "documentation",
+        "complexity": "high"
+      },
+      "metadata": {
+        "test_id": "doc_005",
+        "category": "evaluation_pipeline"
+      }
+    }
+  ],
+  "general_flow_tests": [
+    {
+      "question": "What is the weather like today?",
+      "expected_flow": "general",
+      "expected_response": "I can only answer questions about user-related topics",
+      "expected_entities": [],
+      "context": {
+        "domain": "general",
+        "complexity": "low"
+      },
+      "metadata": {
+        "test_id": "gen_001",
+        "category": "weather"
+      }
+    },
+    {
+      "question": "Can you tell me a joke?",
+      "expected_flow": "general",
+      "expected_response": "I can only answer questions about user-related topics",
+      "expected_entities": [],
+      "context": {
+        "domain": "general",
+        "complexity": "low"
+      },
+      "metadata": {
+        "test_id": "gen_002",
+        "category": "entertainment"
+      }
+    },
+    {
+      "question": "What's the capital of France?",
+      "expected_flow": "general",
+      "expected_response": "I can only answer questions about user-related topics",
+      "expected_entities": [],
+      "context": {
+        "domain": "general",
+        "complexity": "low"
+      },
+      "metadata": {
+        "test_id": "gen_003",
+        "category": "geography"
+      }
+    },
+    {
+      "question": "How do I cook pasta?",
+      "expected_flow": "general",
+      "expected_response": "I can only answer questions about user-related topics",
+      "expected_entities": [],
+      "context": {
+        "domain": "general",
+        "complexity": "low"
+      },
+      "metadata": {
+        "test_id": "gen_004",
+        "category": "cooking"
+      }
+    }
+  ],
+  "more_info_flow_tests": [
+    {
+      "question": "What is Carol's contact information?",
+      "expected_flow": "more-info",
+      "expected_response": "I need more information to help you",
+      "expected_entities": ["Carol"],
+      "context": {
+        "domain": "user_information",
+        "complexity": "medium"
+      },
+      "metadata": {
+        "test_id": "more_001",
+        "category": "incomplete_name"
+      }
+    },
+    {
+      "question": "Can you tell me about Mr. Smith's account?",
+      "expected_flow": "more-info",
+      "expected_response": "I need more information to help you",
+      "expected_entities": ["Mr. Smith"],
+      "context": {
+        "domain": "user_information",
+        "complexity": "medium"
+      },
+      "metadata": {
+        "test_id": "more_002",
+        "category": "title_only"
+      }
+    },
+    {
+      "question": "Show me Johnson's billing details",
+      "expected_flow": "more-info",
+      "expected_response": "I need more information to help you",
+      "expected_entities": ["Johnson"],
+      "context": {
+        "domain": "user_information",
+        "complexity": "medium"
+      },
+      "metadata": {
+        "test_id": "more_003",
+        "category": "last_name_only"
+      }
+    },
+    {
+      "question": "What is the email address for Sarah?",
+      "expected_flow": "more-info",
+      "expected_response": "I need more information to help you",
+      "expected_entities": ["Sarah"],
+      "context": {
+        "domain": "user_information",
+        "complexity": "medium"
+      },
+      "metadata": {
+        "test_id": "more_004",
+        "category": "first_name_only"
+      }
+    }
+  ],
+  "edge_cases": [
+    {
+      "question": "What is the contact number for Carol Johnson and also tell me about Weave evaluation models?",
+      "expected_flow": "user",
+      "expected_response": "This is a complex query that involves both user information and documentation",
+      "expected_entities": ["Carol Johnson", "contact number", "Weave", "evaluation models"],
+      "context": {
+        "domain": "mixed",
+        "complexity": "high"
+      },
+      "metadata": {
+        "test_id": "edge_001",
+        "category": "mixed_query"
+      }
+    },
+    {
+      "question": "",
+      "expected_flow": "more-info",
+      "expected_response": "I need more information to help you",
+      "expected_entities": [],
+      "context": {
+        "domain": "empty",
+        "complexity": "low"
+      },
+      "metadata": {
+        "test_id": "edge_002",
+        "category": "empty_query"
+      }
+    },
+    {
+      "question": "Tell me about user123@example.com",
+      "expected_flow": "user",
+      "expected_response": "Information about user123@example.com",
+      "expected_entities": ["user123@example.com"],
+      "context": {
+        "domain": "user_information",
+        "complexity": "medium"
+      },
+      "metadata": {
+        "test_id": "edge_003",
+        "category": "email_identifier"
+      }
+    }
+  ]
+}
+
