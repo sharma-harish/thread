@@ -3,6 +3,7 @@ Streamlit Chat UI
 """
 
 import asyncio
+import random
 import sys
 import time
 from datetime import datetime
@@ -121,6 +122,7 @@ def initialize_graph():
             try:
                 checkpointer = InMemorySaver()
                 st.session_state.graph = get_or_create_graph(checkpointer)
+                st.session_state.thread = {"configurable": {"thread_id": random.randint(1, 100)}}
                 st.session_state.system_status = "online"
                 st.success("✅ Multi-agent system initialized successfully!")
                 return True
@@ -145,7 +147,7 @@ async def process_query_async(query: str) -> Dict[str, Any]:
         }
         
         # Execute the graph
-        result = await st.session_state.graph.ainvoke(initial_state, {"configurable": {"thread_id": "1"}})
+        result = await st.session_state.graph.ainvoke(initial_state, st.session_state.thread)
         
         processing_time = time.time() - start_time
         
@@ -240,6 +242,7 @@ def main():
         # Quick actions
         st.subheader("⚡ Quick Actions")
         if st.button("🗑️ Clear Chat"):
+            st.session_state.thread = {"configurable": {"thread_id": random.randint(1, 100)}}
             st.session_state.messages = []
             st.rerun()
 
