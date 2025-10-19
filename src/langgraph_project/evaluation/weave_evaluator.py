@@ -212,54 +212,13 @@ async def run_weave_evaluation(test_cases: List[TestCase], model_name: str = "Mu
     
     return evaluation
 
-
-# async def create_leaderboard(evaluations: List[Evaluation], name: str = "Multi-Agent Leaderboard") -> Any:
-#     """Create a Weave leaderboard from evaluations."""
-#     from weave.flow import leaderboard
-#     from weave.trace.ref_util import get_ref
-#
-#     # Create leaderboard specification
-#     spec = leaderboard.Leaderboard(
-#         name=name,
-#         description="""
-# This leaderboard compares the performance of different multi-agent models.
-#
-# ### Columns
-#
-# 1. **Flow Accuracy**: The fraction of tests where the correct flow was selected.
-# 2. **Response Quality**: Average response quality score.
-# 3. **Entity Extraction**: Average entity extraction accuracy.
-# """,
-#         columns=[
-#             leaderboard.LeaderboardColumn(
-#                 evaluation_object_ref=get_ref(evaluations[0]).uri(),
-#                 scorer_name="flow_accuracy_scorer",
-#                 summary_metric_path="correct.true_fraction",
-#             ),
-#             leaderboard.LeaderboardColumn(
-#                 evaluation_object_ref=get_ref(evaluations[0]).uri(),
-#                 scorer_name="response_quality_scorer",
-#                 summary_metric_path="score.mean",
-#             ),
-#             leaderboard.LeaderboardColumn(
-#                 evaluation_object_ref=get_ref(evaluations[0]).uri(),
-#                 scorer_name="entity_extraction_scorer",
-#                 summary_metric_path="score.mean",
-#             ),
-#         ],
-#     )
-#
-#     # Publish leaderboard
-#     ref = weave.publish(spec)
-#     return ref
-
 async def run_simple_weave_evaluation():
     """Run a simple Weave evaluation with sample data."""
     # Load test cases
     test_cases = load_test_cases("src/langgraph_project/evaluation/datasets/comprehensive_test_cases.json")
     
     # Take a small sample for demo
-    sample_cases = test_cases[:5]
+    sample_cases = test_cases[:1]
     
     # Run evaluation
     evaluation = await run_weave_evaluation(sample_cases, "WeaveMultiAgent")
@@ -268,38 +227,6 @@ async def run_simple_weave_evaluation():
     print(f"📊 Check your Weave dashboard for results")
     
     return evaluation
-
-
-# async def run_leaderboard_demo():
-#     """Run a leaderboard demo with multiple evaluations."""
-#     import asyncio
-#
-#     # Create sample evaluations (in real usage, you'd have different models)
-#     test_cases = load_test_cases("src/langgraph_project/evaluation/datasets/comprehensive_test_cases.json")
-#     sample_cases = test_cases[:3]  # Small sample
-#
-#     # Create multiple evaluations
-#     evaluations = []
-#
-#     # Evaluation 1: All flows
-#     eval1 = await run_weave_evaluation(sample_cases, "AllFlows")
-#     evaluations.append(eval1)
-#
-#     # Evaluation 2: User flow only
-#     user_cases = [tc for tc in sample_cases if tc.expected_flow == FlowType.USER]
-#     if user_cases:
-#         eval2 = await run_weave_evaluation(user_cases, "UserFlowOnly")
-#         evaluations.append(eval2)
-#
-#     # Create leaderboard
-#     print("🏆 Creating leaderboard...")
-#     leaderboard_ref = await create_leaderboard(evaluations, "Multi-Agent Performance")
-#
-#     print(f"✅ Leaderboard created!")
-#     print(f"📊 Check your Weave dashboard for the leaderboard")
-#
-#     return leaderboard_ref
-
 
 if __name__ == "__main__":
     import asyncio
