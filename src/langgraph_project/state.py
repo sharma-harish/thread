@@ -22,6 +22,12 @@ class Router(TypedDict):
     type: Literal["more-info", "user", "documentation", "general"]
     logic: str # save the logic behind the classification
 
+def limited_add_messages(prev: list[AnyMessage], new: list[AnyMessage]) -> list[AnyMessage]:
+    # first, use the default reducer to add messages
+    updated = add_messages(prev, new)
+    # then, trim to last 5
+    return updated[-5:]
+
 @dataclass(kw_only=True)
 class AgentState(TypedDict):
     """Represents the input state for the agent.
@@ -32,7 +38,7 @@ class AgentState(TypedDict):
     to the outside world compared to what is maintained internally.
     """
 
-    messages: Annotated[list[AnyMessage], add_messages]
+    messages: Annotated[list[AnyMessage], limited_add_messages]
     message: Router
     
 
