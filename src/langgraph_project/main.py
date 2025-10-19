@@ -2,19 +2,36 @@ import logging
 from typing import Literal
 
 from langgraph.graph import StateGraph, START, END
-from langgraph_project.state import AgentState
-from langgraph_project.agents.agents import (
-    Orchestrator,
-    GeneralQuestionAgent,
-    AskMoreInfoAgent,
-    RAGAgent,
-    GenerateResponseAgent
-)
-from langgraph_project.agents.configuration import AgentsConfiguration
-from langgraph_project.tools import retrieve_documentation_vectorbase
-from langgraph_project.utils import create_tool_node_with_fallback, save_graph_image, _print_event
-from langgraph_project.tools import retrieve_user_information_vectorbase
-from langgraph_project.settings import settings
+try:
+    # Try relative imports first (when run as module)
+    from .state import AgentState
+    from .agents.agents import (
+        Orchestrator,
+        GeneralQuestionAgent,
+        AskMoreInfoAgent,
+        RAGAgent,
+        GenerateResponseAgent
+    )
+    from .agents.configuration import AgentsConfiguration
+    from .tools.documentation_retriever_tool import retrieve_documentation_vectorbase
+    from .utils import create_tool_node_with_fallback, save_graph_image, _print_event
+    from .tools.user_retriever_tool import retrieve_user_information_vectorbase
+    from .settings import settings
+except ImportError:
+    # Fallback to absolute imports (when run directly)
+    from langgraph_project.state import AgentState
+    from langgraph_project.agents.agents import (
+        Orchestrator,
+        GeneralQuestionAgent,
+        AskMoreInfoAgent,
+        RAGAgent,
+        GenerateResponseAgent
+    )
+    from langgraph_project.agents.configuration import AgentsConfiguration
+    from langgraph_project.tools.documentation_retriever_tool import retrieve_documentation_vectorbase
+    from langgraph_project.utils import create_tool_node_with_fallback, save_graph_image, _print_event
+    from langgraph_project.tools.user_retriever_tool import retrieve_user_information_vectorbase
+    from langgraph_project.settings import settings
 import os
 import weave
 
@@ -123,7 +140,7 @@ def run_example():
     graph = get_or_create_graph()
 
     with weave.attributes({"new": "value"}):
-        result = graph.invoke({"messages": [("user", "How are you doing")]})
+        result = graph.invoke({"messages": [("user", "How do i create an evaluation")]})
 
     print(result)
     return result
@@ -134,7 +151,7 @@ def run_streaming_example():
     graph = get_or_create_graph()
     _printed = set()
     events = graph.stream(
-        {"messages": ("user", "What is John Doe's account number?")}, stream_mode="values"  # RAG
+        {"messages": ("user", "How do i create an evaluation")}, stream_mode="values"  # RAG
         # {"messages": ("user", "Can you tell me John's number?")}, stream_mode="values" # More info
         # {"messages": ("user", "Which stocks showed the most growth in the last 5 years?")}, stream_mode="values" # General
     )
