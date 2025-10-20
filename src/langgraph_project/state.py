@@ -38,7 +38,7 @@ class AgentState(TypedDict):
     to the outside world compared to what is maintained internally.
     """
 
-    messages: Annotated[list[AnyMessage], limited_add_messages]
+    messages: Annotated[list[AnyMessage], add_messages]
     message: Router
     
 
