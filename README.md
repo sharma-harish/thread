@@ -66,8 +66,7 @@ pip install -e .
 
 ### 3. Environment Configuration
 
-Create a `.env` file in the project root:
-
+Create a `.env` file in the project root. Set **use_google** to **true** if using Gemini model family, otherwise set it to false to fallback to openAI
 ```bash
 # Required
 openai_api_key=your_openai_api_key_here
