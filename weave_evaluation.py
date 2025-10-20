@@ -13,7 +13,7 @@ src_path = project_root / "src"
 sys.path.insert(0, str(src_path))
 
 from langgraph_project.evaluation.weave_evaluator import (
-    run_simple_weave_evaluation
+    run_simple_weave_evaluation, load_test_cases
 )
 
 
@@ -21,9 +21,12 @@ async def demo_evaluation():
     """Demo Weave evaluation."""
     print("🚀 Simple Weave Evaluation Demo")
     print("="*50)
+    test_cases = load_test_cases("src/langgraph_project/evaluation/datasets/comprehensive_test_cases.json")
+    len_test_cases = len(test_cases)
+    batch = int(input(f"Enter dataset size (max: {len_test_cases}): ").strip())
     
     try:
-        evaluation = await run_simple_weave_evaluation()
+        evaluation = await run_simple_weave_evaluation(batch)
         print(f"✅ Evaluation completed successfully!")
         print(f"📊 Check your Weave dashboard for detailed results")
         return evaluation

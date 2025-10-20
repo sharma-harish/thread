@@ -213,13 +213,13 @@ async def run_weave_evaluation(test_cases: List[TestCase], model_name: str = "Mu
     
     return evaluation
 
-async def run_simple_weave_evaluation():
+async def run_simple_weave_evaluation(batch):
     """Run a simple Weave evaluation with sample data."""
     # Load test cases
     test_cases = load_test_cases("src/langgraph_project/evaluation/datasets/comprehensive_test_cases.json")
     
     # Take a small sample for demo
-    sample_cases = random.sample(test_cases, 5)
+    sample_cases = test_cases[:batch]
     
     # Run evaluation
     evaluation = await run_weave_evaluation(sample_cases, "WeaveMultiAgent")
