@@ -5,8 +5,14 @@ An example showing how to create leaderboards using Weave.
 """
 
 import asyncio
+import sys
+from pathlib import Path
+# Add the src directory to Python path
+project_root = Path(__file__).parent
+src_path = project_root / "src"
+sys.path.insert(0, str(src_path))
 
-from src.langgraph_project.evaluation.weave_evaluator import (
+from langgraph_project.evaluation.weave_evaluator import (
     run_simple_weave_evaluation
 )
 
