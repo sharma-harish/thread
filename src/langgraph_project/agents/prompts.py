@@ -17,8 +17,8 @@ Classify a user inquiry as this if it can be answered by looking up information 
 contains informations about user's account, their usage, and their billing information.
 
 ## `documentation`
-Classify a user inquiry as this if it can be answered by looking up information related to Weave documentation in the knowledge base. The knowledge base \
-contains informations about Weave's features, Weave Inference, Setting up LLM call traces, comparing models, evaluating model performance, and building an evaluation pipeline 
+Classify a user inquiry as this if it can be answered by looking up information related to Weave documentation (weave is a ML tracing and monitoring platform) in the knowledge base. The knowledge base \
+contains informations about Weave's features, Weave Inference, Setting up LLM call traces, comparing models, evaluating model performance, creating a dataset, details about op decorator and building an evaluation pipeline 
 
 ## `general`
 Classify a user inquiry as this if it is just a general question"""

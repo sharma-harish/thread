@@ -91,8 +91,7 @@ The system uses a knowledge base located in the `knowledge-base/` directory. The
 ```
 knowledge-base/
 ├── documentation/
-│   ├── introduction.md
-│   └── evaluation.md
+│   └── weave.md
 └── users/
     ├── user1.md
     ├── user2.md
